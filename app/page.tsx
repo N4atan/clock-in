@@ -1,69 +1,122 @@
-import Image from "next/image";
+import { ArrowLeft, ChevronLeft, ChevronRight, CircleCheckBig, ClockAlert, ClockArrowLeftIcon, ClockArrowRightIcon, ForkKnifeCrossed } from "lucide-react";
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="flex flex-col flex-1 p-4 gap-5">
+      <div className="w-full bg-base-200 border border-base-300 p-2 rounded-lg ">
+        <div className="join w-full">
+          <div className="join-item border-0">
+            <button className="btn bg-white text-black btn-sm"><ChevronLeft size={16} strokeWidth={1} /></button>
+
+          </div>
+          <div className="join-item w-full flex justify-center items-center border-0 opacity-80 ">Month</div>
+          <div className="join-item border-0">
+            <button className="btn bg-white text-black btn-sm"><ChevronRight size={16} strokeWidth={1} /></button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      
+
+      <div className="w-full grid grid-cols-[40px_repeat(5,1fr)_40px] gap-2 items-center">
+        <button className="btn bg-white text-black btn-sm"><ChevronLeft size={12} strokeWidth={1} /></button>
+
+        <button className="btn flex flex-col h-16 btn-sm btn-primary">
+          <div className="font-light ">Mon</div>
+          <div className="font-bold ">19</div>
+        </button>
+
+        <button className="btn flex flex-col h-16 btn-sm bg-white">
+          <div className="font-light ">Tue</div>
+          <div className="font-bold ">20</div>
+        </button>
+
+        <button className="btn flex flex-col h-16 btn-sm bg-white">
+          <div className="font-light ">Wed</div>
+          <div className="font-bold ">21</div>
+        </button>
+        
+        <button className="btn flex flex-col h-16 btn-sm bg-white">
+          <div className="font-light ">Thu</div>
+          <div className="font-bold ">22</div>
+        </button>
+        
+        <button className="btn flex flex-col h-16 btn-sm bg-white">
+          <div className="font-light ">Fri</div>
+          <div className="font-bold ">23</div>
+        </button>
+
+        <button className="btn bg-white te xt-black btn-sm"><ChevronRight size={12} strokeWidth={1} /></button>
+      </div>
+
+
+      <div className="w-full border border-base-300 rounded-lg flex flex-row ">
+        <div className="stat">
+          <div className="font-thin text-sm opacity-60">Clock in Time</div>
+          <div className="opacity-80">08:00am</div>
         </div>
-      </main>
-    </div>
+
+        <div className="stat">
+          <div className="font-thin text-sm opacity-60">Break Time</div>
+          <div className="opacity-80">12:00pm</div>
+        </div>
+
+        <div className="stat">
+          <div className="font-thin text-sm opacity-60">Clock out Time</div>
+          <div className="opacity-80">17:30pm</div>
+        </div>
+      </div>
+
+      <div className="divider my-2">Today Schedules</div>
+
+      <ul className="list bg-base-100 rounded-box gap-4 flex-1">
+        <li className="list-row border border-base-300">
+          <div className=" text-4xl flex items-center justify-center text-base">
+            <ClockArrowLeftIcon size={24} strokeWidth={2} />
+          </div>
+          <div className="list-col-grow">
+            <div>Clock out</div>
+            <div className="text-xs uppercase font-semibold opacity-60">Clockout hour</div>
+          </div>
+          <div className="badge badge-soft badge-error badge-sm self-center">
+            <ClockAlert size={14} strokeWidth={2} />
+            Early
+          </div>
+        </li>
+
+        <li className="list-row border border-base-300">
+          <div className=" text-4xl flex items-center justify-center text-secondary">
+            <ForkKnifeCrossed size={24} strokeWidth={2} />
+          </div>
+          <div className="list-col-grow">
+            <div>Breaktime</div>
+            <div className="text-xs uppercase font-semibold opacity-60">Breaktime initial time - Breaktime final time</div>
+          </div>
+          <div className="badge badge-soft badge-success badge-sm self-center">
+            <CircleCheckBig size={14} strokeWidth={2} />
+            Ok
+          </div>
+        </li>
+
+        <li className="list-row border border-base-300">
+          <div className=" text-4xl flex items-center justify-center text-base">
+            <ClockArrowRightIcon size={24} strokeWidth={2} />
+          </div>
+          <div className="list-col-grow">
+            <div>Clock in</div>
+            <div className="text-xs uppercase font-semibold opacity-60">Clockin hour</div>
+          </div>
+          <div className="badge badge-soft badge-warning badge-sm self-center">
+            <ClockAlert size={14} strokeWidth={2} />
+            Late
+          </div>
+        </li>
+
+
+
+      </ul>
+
+    </main>
   );
 }
