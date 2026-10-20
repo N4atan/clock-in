@@ -19,32 +19,42 @@ export default function Home() {
 
       
 
-      <div className="w-full grid grid-cols-[40px_repeat(5,1fr)_40px] gap-2 items-center">
+      <div className="w-full grid grid-cols-[40px_repeat(7,1fr)_40px] gap-2 items-center">
         <button className="btn bg-white text-black btn-sm"><ChevronLeft size={12} strokeWidth={1} /></button>
 
-        <button className="btn flex flex-col h-16 btn-sm btn-primary">
+        <button className="btn flex flex-col h-16 btn-sm">
           <div className="font-light ">Mon</div>
           <div className="font-bold ">19</div>
         </button>
 
-        <button className="btn flex flex-col h-16 btn-sm bg-white">
+        <button className="btn flex flex-col h-16 btn-sm btn-secondary">
           <div className="font-light ">Tue</div>
           <div className="font-bold ">20</div>
         </button>
 
-        <button className="btn flex flex-col h-16 btn-sm bg-white">
+        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
           <div className="font-light ">Wed</div>
           <div className="font-bold ">21</div>
         </button>
         
-        <button className="btn flex flex-col h-16 btn-sm bg-white">
+        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
           <div className="font-light ">Thu</div>
           <div className="font-bold ">22</div>
         </button>
         
-        <button className="btn flex flex-col h-16 btn-sm bg-white">
+        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
           <div className="font-light ">Fri</div>
           <div className="font-bold ">23</div>
+        </button>
+        
+        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
+          <div className="font-light ">Sat</div>
+          <div className="font-bold ">24</div>
+        </button>
+        
+        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
+          <div className="font-light ">Sun</div>
+          <div className="font-bold ">25</div>
         </button>
 
         <button className="btn bg-white te xt-black btn-sm"><ChevronRight size={12} strokeWidth={1} /></button>
@@ -116,6 +126,8 @@ export default function Home() {
 
 
       </ul>
+
+      <button className="btn btn-primary sticky bottom-0 btn-wide">Clock In</button>
 
     </main>
   );
