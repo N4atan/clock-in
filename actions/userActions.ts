@@ -9,6 +9,7 @@ export type User = {
     id: number;
     name: string;
     email: string;
+    password: string;
 };
 
 export type ApiResponse<T> = {
@@ -19,11 +20,12 @@ export type ApiResponse<T> = {
     error?: string;
 }
 
-export async function postUser(name: string, email: string): Promise<ApiResponse<User>> {
+export async function postUser(name: string, email: string, password: string): Promise<ApiResponse<User>> {
     try {
         const value: typeof users.$inferInsert = {
             name,
             email,
+            password
         };
         
         const [createdUser] = await db.insert(users).values(value).returning();
