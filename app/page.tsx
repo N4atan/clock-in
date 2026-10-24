@@ -1,66 +1,111 @@
+"use client";
+
 import { ArrowLeft, ChevronLeft, ChevronRight, CircleCheckBig, ClockAlert, ClockArrowLeftIcon, ClockArrowRightIcon, ForkKnifeCrossed } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+
+import { format, addDays, subDays, getMonth, getDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameMonth, getYear, getDaysInMonth, lastDayOfMonth, isBefore, isToday, isAfter, isSameDay } from 'date-fns'
 
 
 export default function Home() {
+
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+  const [today, setIsToday] = useState<Date>();
+  const [idViewMonth, setViewMonth] = useState<number>();
+  const [daysInMonth, setDaysInMonth] = useState<Date[]>([]);
+
+  const todayCardRef = useRef<HTMLButtonElement>(null);
+
+  const [daySelected, setDaySelected] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const getToday = () => {
+      const date = new Date();
+      setIsToday(date);
+      setViewMonth(getMonth(date));
+      setDaysInMonth(refreshDaysInMoth(getYear(date), getMonth(date)));
+      setDaySelected(date);
+    }
+    getToday();
+  }, []);
+  
+  useEffect(() => {
+    if (today && idViewMonth !== undefined) {
+      setDaysInMonth(refreshDaysInMoth(getYear(today), idViewMonth));
+    }
+    if (todayCardRef.current) {
+      todayCardRef.current.scrollIntoView({
+        behavior: "smooth", // Rola de forma suave
+        block: "nearest",   // Evita rolar a página inteira para cima/baixo
+        inline: "center",   // Centraliza o botão de hoje na tela horizontalmente
+      });
+    }
+  }, [ today, idViewMonth ])
+
+
+
+  const refreshDaysInMoth = (year: number, month: number) => {
+    
+
+    return eachDayOfInterval({
+      start: startOfMonth(new Date(year, month)),
+      end: endOfMonth(new Date(year, month))
+    })
+  }
+
+  const handlePrevMonth = () => {
+    setViewMonth(idViewMonth! - 1);
+    setDaysInMonth(refreshDaysInMoth(getYear(today!), idViewMonth! - 1));
+  }
+
+  const handleNextMonth = () => {
+    setViewMonth(idViewMonth! + 1);
+    setDaysInMonth(refreshDaysInMoth(getYear(today!), idViewMonth! + 1));
+
+  }
+
+  
+
   return (
     <main className="flex flex-col flex-1 p-4 gap-5">
       <div className="w-full bg-base-200 border border-base-300 p-2 rounded-lg ">
         <div className="join w-full">
           <div className="join-item border-0">
-            <button className="btn bg-white text-black btn-sm"><ChevronLeft size={16} strokeWidth={1} /></button>
+            <button className="btn bg-white text-black btn-sm"><ChevronLeft size={16} strokeWidth={1}
+              onClick={handlePrevMonth}
+
+            /></button>
 
           </div>
-          <div className="join-item w-full flex justify-center items-center border-0 opacity-80 ">Month</div>
+          <div className="join-item w-full flex justify-center items-center border-0 opacity-80 ">{months[idViewMonth!]}</div>
           <div className="join-item border-0">
-            <button className="btn bg-white text-black btn-sm"><ChevronRight size={16} strokeWidth={1} /></button>
+            <button className="btn bg-white text-black btn-sm"><ChevronRight size={16} strokeWidth={1} onClick={handleNextMonth} /></button>
           </div>
         </div>
       </div>
 
-      
 
-      <div className="w-full grid grid-cols-[40px_repeat(7,1fr)_40px] gap-2 items-center">
-        <button className="btn bg-white text-black btn-sm"><ChevronLeft size={12} strokeWidth={1} /></button>
 
-        <button className="btn flex flex-col h-16 btn-sm">
-          <div className="font-light ">Mon</div>
-          <div className="font-bold ">19</div>
-        </button>
+      <div className="w-full flex flex-row gap-2 items-center overflow-x-scroll py-2 pb-4">
 
-        <button className="btn flex flex-col h-16 btn-sm btn-secondary">
-          <div className="font-light ">Tue</div>
-          <div className="font-bold ">20</div>
-        </button>
+        {daysInMonth.map((d) => (
+          <button key={d.toISOString()} ref={isToday(d) ? todayCardRef : null} role="radio"
+            onClick={() => setDaySelected(d)}
+            className={`btn flex flex-col h-16 w-14 shrink-0 btn-sm 
+              ${isToday(d) ? '' : 'btn-ghost' }
+              ${daySelected && isSameDay(daySelected, d) && 'btn-primary'}
+              `}
+            disabled={isAfter(d, today!)}
+          >
+            <div className="font-light ">{format(d, "EEE")}</div>
+            <div className="font-bold ">{format(d, "d")}</div>
+          </button>
+        ))}
 
-        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
-          <div className="font-light ">Wed</div>
-          <div className="font-bold ">21</div>
-        </button>
-        
-        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
-          <div className="font-light ">Thu</div>
-          <div className="font-bold ">22</div>
-        </button>
-        
-        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
-          <div className="font-light ">Fri</div>
-          <div className="font-bold ">23</div>
-        </button>
-        
-        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
-          <div className="font-light ">Sat</div>
-          <div className="font-bold ">24</div>
-        </button>
-        
-        <button className="btn flex flex-col h-16 btn-sm btn-ghost">
-          <div className="font-light ">Sun</div>
-          <div className="font-bold ">25</div>
-        </button>
-
-        <button className="btn bg-white te xt-black btn-sm"><ChevronRight size={12} strokeWidth={1} /></button>
       </div>
 
-
+      
       <div className="w-full border border-base-300 rounded-lg flex flex-row ">
         <div className="stat">
           <div className="font-thin text-sm opacity-60">Clock in Time</div>
@@ -78,7 +123,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="divider my-2">Today Schedules</div>
+      <div className="divider my-2">
+        {daySelected && isToday(daySelected) ? "Today Schedules" : `${format(daySelected!, "MMMM d")}'s Schedules`}
+
+      </div>
 
       <ul className="list bg-base-100 rounded-box gap-4 flex-1">
         <li className="list-row border border-base-300">
@@ -127,8 +175,10 @@ export default function Home() {
 
       </ul>
 
-      <button className="btn btn-primary sticky bottom-0 btn-wide">Clock In</button>
-
+      {daySelected && isToday(daySelected) && (
+        <button className="btn btn-neutral sticky bottom-0  w-full">Clock In</button>
+      )}
+       
     </main>
   );
 }
